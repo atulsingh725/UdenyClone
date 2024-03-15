@@ -1,0 +1,177 @@
+﻿@model Data.DBModel.RegistrationModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registration</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction: column;
+            background: #282a36;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .otp-field {
+            display: flex;
+        }
+
+            .otp-field input {
+                width:  70px;
+                font-size: 32px;
+                padding: 10px;
+                text-align: center;
+                border-radius: 5px;
+                margin: 2px;
+                border: 2px solid #55525c;
+                background: #21232d;
+                font-weight: bold;
+                color: #fff;
+                outline: none;
+                transition: all 0.1s;
+            }
+
+                .otp-field input:focus {
+                    border: 2px solid #a527ff;
+                    box-shadow: 0 0 2px 2px #a527ff6a;
+                }
+
+       /* .disabled {
+            opacity: 0.5;
+        }*/
+
+        .space {
+            margin-right: 1rem !important;
+        }
+
+    </style>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <div class="container">
+        <div class="col-sm-4 offset-sm-4 border ps-4 py-4 rounded-1 ">
+            @if (TempData["msg"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["msg"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (true == true)
+            {
+                <h1>Enter OTP</h1>
+                <form method="post" action="">
+                    <div class="otp-field">
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" /><br />
+                                                           <button type="submit" value="Verify OTP" class="btn text-bg-success mt-3 d-flex">Verify OTP</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                using (Html.BeginForm(FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Register</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })<span class="text-danger">*</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })<span class="text-danger">*</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Register" class="btn btn-success mt-2 w-100" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        </div>
+    <script>
+        const inputs = document.querySelectorAll(".otp-field input");
+
+        inputs.forEach((input, index) => {
+            input.dataset.index = index;
+            input.addEventListener("keyup", handleOtp);
+            //input.addEventListener("paste", handleOnPasteOtp);
+        });
+
+        function handleOtp(e) {
+            /**
+             * <input type="text" 👉 maxlength="1" />
+             * 👉 NOTE: On mobile devices `maxlength` property isn't supported,
+             * So we to write our own logic to make it work. 🙂
+             */
+            const input = e.target;
+            let value = input.value;
+            let isValidInput = value.match(/[0-9]/gi);
+            input.value = "";
+            input.value = isValidInput ? value[0] : "";
+
+            let fieldIndex = input.dataset.index;
+            if (fieldIndex < inputs.length - 1 && isValidInput) {
+                input.nextElementSibling.focus();
+            }
+
+            if (e.key === "Backspace" && fieldIndex > 0) {
+                input.previousElementSibling.focus();
+            }
+
+            //if (fieldIndex == inputs.length - 1 && isValidInput) {
+            //   /* submit();*/
+            //}
+        }
+
+        function handleOnPasteOtp(e) {
+            const data = e.clipboardData.getData("text");
+            const value = data.split("");
+            if (value.length === inputs.length) {
+                inputs.forEach((input, index) => (input.value = value[index]));
+                /*submit();*/
+            }
+        }
+
+      
+    </script>
+</body>
+</html>

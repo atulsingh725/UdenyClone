@@ -1,0 +1,9 @@
+C:\UdemyClone\Repository\bin\Debug\Repository.dll
+C:\UdemyClone\Repository\bin\Debug\Repository.pdb
+C:\UdemyClone\Repository\obj\Debug\Repository.csproj.AssemblyReference.cache
+C:\UdemyClone\Repository\obj\Debug\Repository.csproj.CoreCompileInputs.cache
+C:\UdemyClone\Repository\obj\Debug\Repository.dll
+C:\UdemyClone\Repository\obj\Debug\Repository.pdb
+C:\UdemyClone\Repository\bin\Debug\Data.dll
+C:\UdemyClone\Repository\bin\Debug\Data.pdb
+C:\UdemyClone\Repository\obj\Debug\Repository.csproj.CopyComplete

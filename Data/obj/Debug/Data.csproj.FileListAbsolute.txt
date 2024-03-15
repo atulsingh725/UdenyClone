@@ -1,0 +1,6 @@
+C:\UdemyClone\Data\bin\Debug\Data.dll
+C:\UdemyClone\Data\bin\Debug\Data.pdb
+C:\UdemyClone\Data\obj\Debug\Data.csproj.AssemblyReference.cache
+C:\UdemyClone\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+C:\UdemyClone\Data\obj\Debug\Data.dll
+C:\UdemyClone\Data\obj\Debug\Data.pdb
